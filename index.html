@@ -1,0 +1,1367 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0">
+
+    <title>Codly Client Onboarding Wizard</title>
+
+    <!-- Bootstrap -->
+    <link
+        href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css"
+        rel="stylesheet">
+
+    <!-- CSS -->
+    <link rel="stylesheet" href="style.css">
+
+</head>
+
+<body>
+
+
+<!-- =====================================================
+     LOGIN PAGE
+===================================================== -->
+
+<div id="loginPage" class="login-page">
+
+    <div class="login-box">
+
+        <div class="text-center mb-4">
+
+            <h2>CODLY</h2>
+
+            <p>codly Onboarding Wizard</p>
+
+        </div>
+
+
+        <h4 class="text-center mb-4">
+            Login
+        </h4>
+
+
+        <div class="mb-3">
+
+            <label class="form-label">
+                Select Role
+            </label>
+
+            <select
+                id="loginRole"
+                class="form-select">
+
+                <option value="">
+                    Select Role
+                </option>
+
+                <option value="client">
+                    Client
+                </option>
+
+                <option value="sales">
+                    Sales Team
+                </option>
+
+                <option value="manager">
+                    Project Manager
+                </option>
+
+                <option value="admin">
+                    Super Admin
+                </option>
+
+            </select>
+
+        </div>
+
+
+        <div class="mb-3">
+
+            <label class="form-label">
+                Username
+            </label>
+
+            <input
+                type="text"
+                id="username"
+                class="form-control"
+                placeholder="Enter username">
+
+        </div>
+
+
+        <div class="mb-3">
+
+            <label class="form-label">
+                Password
+            </label>
+
+            <input
+                type="password"
+                id="password"
+                class="form-control"
+                placeholder="Enter password">
+
+        </div>
+
+
+        <button
+            class="btn btn-primary w-100"
+            onclick="login()">
+
+            Login
+
+        </button>
+
+
+        <div
+            id="loginError"
+            class="text-danger text-center mt-3">
+        </div>
+
+    </div>
+
+</div>
+
+
+
+<!-- =====================================================
+     APPLICATION
+===================================================== -->
+
+<div id="appPage" class="d-none">
+
+
+    <!-- NAVBAR -->
+
+    <nav class="navbar navbar-dark bg-primary">
+
+        <div class="container-fluid">
+
+            <span class="navbar-brand fw-bold">
+
+                CODLY Client Onboarding Wizard
+
+            </span>
+
+
+            <div class="text-white">
+
+                <span id="userDisplay"></span>
+
+                <button
+                    class="btn btn-light btn-sm ms-3"
+                    onclick="logout()">
+
+                    Logout
+
+                </button>
+
+            </div>
+
+        </div>
+
+    </nav>
+
+
+
+    <div class="container-fluid">
+
+        <div class="row">
+
+
+            <!-- =================================================
+                 SIDEBAR
+            ================================================= -->
+
+            <div class="col-md-3 col-lg-2 sidebar">
+
+                <h5 class="mb-4">
+                    Dashboard
+                </h5>
+
+
+                <!-- CLIENT / SALES -->
+
+                <div id="entryMenu"
+                     class="d-none">
+
+                    <button
+                        class="menu-btn"
+                        onclick="showEnterInformation()">
+
+                        📝 Enter Information
+
+                    </button>
+
+
+                    <button
+                        class="menu-btn"
+                        onclick="showMySummary()">
+
+                        📄 Project Summary
+
+                    </button>
+
+                </div>
+
+
+
+                <!-- PROJECT MANAGER -->
+
+                <div id="managerMenu"
+                     class="d-none">
+
+                    <button
+                        class="menu-btn"
+                        onclick="showAllClients()">
+
+                        👥 All Clients
+
+                    </button>
+
+                </div>
+
+
+
+                <!-- SUPER ADMIN -->
+
+                <div id="adminMenu"
+                     class="d-none">
+
+                    <button
+                        class="menu-btn"
+                        onclick="showAdminDashboard()">
+
+                        📊 Dashboard
+
+                    </button>
+
+
+                    <button
+                        class="menu-btn"
+                        onclick="showAdminClients()">
+
+                        👥 All Clients
+
+                    </button>
+
+
+                    <button
+                        class="menu-btn"
+                        onclick="showAdminAddClient()">
+
+                        ➕ Add Client
+
+                    </button>
+
+
+                    
+
+                </div>
+
+            </div>
+
+
+
+            <!-- =================================================
+                 MAIN CONTENT
+            ================================================= -->
+
+            <div class="col-md-9 col-lg-10 main-content">
+
+
+                <!-- =================================================
+                     CLIENT INFORMATION
+                ================================================= -->
+
+                <div
+                    id="informationSection"
+                    class="d-none">
+
+
+                    <div class="heading">
+
+                        <h2>
+                            Client Information
+                        </h2>
+
+                        <p>
+                            Enter the complete project requirements.
+                        </p>
+
+                    </div>
+
+
+                    <form id="clientForm">
+
+
+                        <!-- CLIENT INFORMATION -->
+
+                        <div class="form-card">
+
+                            <h4>
+                                1. Client Information
+                            </h4>
+
+                            <div class="row">
+
+                                <div class="col-md-6 mb-3">
+
+                                    <label>
+                                        Client Name *
+                                    </label>
+
+                                    <input
+                                        type="text"
+                                        id="clientName"
+                                        class="form-control"
+                                        required>
+
+                                </div>
+
+
+                                <div class="col-md-6 mb-3">
+
+                                    <label>
+                                        Company Name *
+                                    </label>
+
+                                    <input
+                                        type="text"
+                                        id="companyName"
+                                        class="form-control"
+                                        required>
+
+                                </div>
+
+
+                                <div class="col-md-6 mb-3">
+
+                                    <label>
+                                        Email *
+                                    </label>
+
+                                    <input
+                                        type="email"
+                                        id="email"
+                                        class="form-control"
+                                        required>
+
+                                </div>
+
+
+                                <div class="col-md-6 mb-3">
+
+                                    <label>
+                                        Phone *
+                                    </label>
+
+                                    <input
+                                        type="tel"
+                                        id="phone"
+                                        class="form-control"
+                                        required>
+
+                                </div>
+
+
+                                <div class="col-md-6 mb-3">
+
+                                    <label>
+                                        Business Type
+                                    </label>
+
+                                    <input
+                                        type="text"
+                                        id="businessType"
+                                        class="form-control">
+
+                                </div>
+
+
+                                <div class="col-md-6 mb-3">
+
+                                    <label>
+                                        Location
+                                    </label>
+
+                                    <input
+                                        type="text"
+                                        id="location"
+                                        class="form-control">
+
+                                </div>
+
+                            </div>
+
+                        </div>
+
+
+
+                        <!-- BRANDING -->
+
+                        <div class="form-card">
+
+                            <h4>
+                                2. Branding Information
+                            </h4>
+
+
+                            <div class="mb-3">
+
+                                <label>
+                                    Brand Name
+                                </label>
+
+                                <input
+                                    type="text"
+                                    id="brandName"
+                                    class="form-control">
+
+                            </div>
+
+
+                            <div class="mb-3">
+
+                                <label>
+                                    Brand Description
+                                </label>
+
+                                <textarea
+                                    id="brandDescription"
+                                    class="form-control"
+                                    rows="3"></textarea>
+
+                            </div>
+
+
+                            <div class="row">
+
+                                <div class="col-md-6 mb-3">
+
+                                    <label>
+                                        Primary Color
+                                    </label>
+
+                                    <input
+                                        type="color"
+                                        id="primaryColor"
+                                        class="form-control form-control-color"
+                                        value="#0d6efd">
+
+                                </div>
+
+
+                                <div class="col-md-6 mb-3">
+
+                                    <label>
+                                        Logo Available
+                                    </label>
+
+                                    <select
+                                        id="logoAvailable"
+                                        class="form-select">
+
+                                        <option value="">
+                                            Select
+                                        </option>
+
+                                        <option>Yes</option>
+
+                                        <option>No</option>
+
+                                    </select>
+
+                                </div>
+
+                            </div>
+
+                        </div>
+
+
+
+                        <!-- WEBSITE -->
+
+                        <div class="form-card">
+
+                            <h4>
+                                3. Website / Project Requirements
+                            </h4>
+
+
+                            <div class="mb-3">
+
+                                <label>
+                                    Project Name *
+                                </label>
+
+                                <input
+                                    type="text"
+                                    id="projectName"
+                                    class="form-control"
+                                    required>
+
+                            </div>
+
+
+                            <div class="mb-3">
+
+                                <label>
+                                    Project Description *
+                                </label>
+
+                                <textarea
+                                    id="projectDescription"
+                                    class="form-control"
+                                    rows="4"
+                                    required></textarea>
+
+                            </div>
+
+
+                            <div class="row">
+
+                                <div class="col-md-6 mb-3">
+
+                                    <label>
+                                        Website Type
+                                    </label>
+
+                                    <select
+                                        id="websiteType"
+                                        class="form-select">
+
+                                        <option value="">
+                                            Select
+                                        </option>
+
+                                        <option>
+                                            Business Website
+                                        </option>
+
+                                        <option>
+                                            E-Commerce
+                                        </option>
+
+                                        <option>
+                                            Portfolio
+                                        </option>
+
+                                        <option>
+                                            Blog
+                                        </option>
+
+                                        <option>
+                                            Educational Website
+                                        </option>
+
+                                    </select>
+
+                                </div>
+
+
+                                <div class="col-md-6 mb-3">
+
+                                    <label>
+                                        Target Audience
+                                    </label>
+
+                                    <input
+                                        type="text"
+                                        id="targetAudience"
+                                        class="form-control">
+
+                                </div>
+
+                            </div>
+
+
+                            <div class="mb-3">
+
+                                <label>
+                                    Required Pages
+                                </label>
+
+                                <textarea
+                                    id="requiredPages"
+                                    class="form-control"
+                                    rows="3"
+                                    placeholder="Home, About, Services, Contact..."></textarea>
+
+                            </div>
+
+                        </div>
+
+
+
+                        <!-- DOMAIN -->
+
+                        <div class="form-card">
+
+                            <h4>
+                                4. Domain & Hosting
+                            </h4>
+
+
+                            <div class="row">
+
+                                <div class="col-md-6 mb-3">
+
+                                    <label>
+                                        Domain Name
+                                    </label>
+
+                                    <input
+                                        type="text"
+                                        id="domainName"
+                                        class="form-control">
+
+                                </div>
+
+
+                                <div class="col-md-6 mb-3">
+
+                                    <label>
+                                        Domain Available
+                                    </label>
+
+                                    <select
+                                        id="domainAvailable"
+                                        class="form-select">
+
+                                        <option value="">
+                                            Select
+                                        </option>
+
+                                        <option>Yes</option>
+
+                                        <option>No</option>
+
+                                    </select>
+
+                                </div>
+
+
+                                <div class="col-md-6 mb-3">
+
+                                    <label>
+                                        Hosting Provider
+                                    </label>
+
+                                    <input
+                                        type="text"
+                                        id="hostingProvider"
+                                        class="form-control">
+
+                                </div>
+
+
+                                <div class="col-md-6 mb-3">
+
+                                    <label>
+                                        Hosting Available
+                                    </label>
+
+                                    <select
+                                        id="hostingAvailable"
+                                        class="form-select">
+
+                                        <option value="">
+                                            Select
+                                        </option>
+
+                                        <option>Yes</option>
+
+                                        <option>No</option>
+
+                                    </select>
+
+                                </div>
+
+                            </div>
+
+                        </div>
+
+
+
+                        <!-- COMPETITOR -->
+
+                        <div class="form-card">
+
+                            <h4>
+                                5. Competitor Analysis
+                            </h4>
+
+
+                            <div class="mb-3">
+
+                                <label>
+                                    Competitor Websites
+                                </label>
+
+                                <textarea
+                                    id="competitors"
+                                    class="form-control"
+                                    rows="3"></textarea>
+
+                            </div>
+
+
+                            <div class="mb-3">
+
+                                <label>
+                                    What do you like about competitors?
+                                </label>
+
+                                <textarea
+                                    id="competitorLikes"
+                                    class="form-control"
+                                    rows="3"></textarea>
+
+                            </div>
+
+                        </div>
+
+
+
+                        <!-- CONTENT -->
+
+                        <div class="form-card">
+
+                            <h4>
+                                6. Content Collection
+                            </h4>
+
+
+                            <div class="mb-3">
+
+                                <label>
+                                    Content Availability
+                                </label>
+
+                                <select
+                                    id="contentAvailable"
+                                    class="form-select">
+
+                                    <option value="">
+                                        Select
+                                    </option>
+
+                                    <option>
+                                        Complete
+                                    </option>
+
+                                    <option>
+                                        Partial
+                                    </option>
+
+                                    <option>
+                                        Not Available
+                                    </option>
+
+                                </select>
+
+                            </div>
+
+
+                            <div class="mb-3">
+
+                                <label>
+                                    Content Details
+                                </label>
+
+                                <textarea
+                                    id="contentDetails"
+                                    class="form-control"
+                                    rows="3"></textarea>
+
+                            </div>
+
+                        </div>
+
+
+
+                        <!-- SOCIAL -->
+
+                        <div class="form-card">
+
+                            <h4>
+                                7. Social Media
+                            </h4>
+
+
+                            <div class="mb-3">
+
+                                <label>
+                                    Facebook
+                                </label>
+
+                                <input
+                                    type="text"
+                                    id="facebook"
+                                    class="form-control">
+
+                            </div>
+
+
+                            <div class="mb-3">
+
+                                <label>
+                                    Instagram
+                                </label>
+
+                                <input
+                                    type="text"
+                                    id="instagram"
+                                    class="form-control">
+
+                            </div>
+
+
+                            <div class="mb-3">
+
+                                <label>
+                                    LinkedIn
+                                </label>
+
+                                <input
+                                    type="text"
+                                    id="linkedin"
+                                    class="form-control">
+
+                            </div>
+
+                        </div>
+
+
+
+                        <!-- SEO -->
+
+                        <div class="form-card">
+
+                            <h4>
+                                8. SEO Information
+                            </h4>
+
+
+                            <div class="mb-3">
+
+                                <label>
+                                    Target Keywords
+                                </label>
+
+                                <textarea
+                                    id="keywords"
+                                    class="form-control"
+                                    rows="3"></textarea>
+
+                            </div>
+
+
+                            <div class="mb-3">
+
+                                <label>
+                                    Target Location
+                                </label>
+
+                                <input
+                                    type="text"
+                                    id="targetLocation"
+                                    class="form-control">
+
+                            </div>
+
+                        </div>
+
+
+
+                        <!-- NOTES -->
+
+                        <div class="form-card">
+
+                            <h4>
+                                9. Additional Notes
+                            </h4>
+
+
+                            <textarea
+                                id="additionalNotes"
+                                class="form-control"
+                                rows="5"></textarea>
+
+                        </div>
+
+
+
+                        <div class="save-box">
+
+                            <button
+                                type="submit"
+                                class="btn btn-success btn-lg">
+
+                                💾 Save Information
+
+                            </button>
+
+
+                            <button
+                                type="button"
+                                class="btn btn-secondary btn-lg ms-2"
+                                onclick="clearForm()">
+
+                                Clear
+
+                            </button>
+
+                        </div>
+
+                    </form>
+
+                </div>
+
+
+
+                <!-- =================================================
+                     MY SUMMARY
+                ================================================= -->
+
+                <div
+                    id="mySummarySection"
+                    class="d-none">
+
+                    <div class="heading">
+
+                        <h2>
+                            Project Summary
+                        </h2>
+
+                    </div>
+
+                    <div id="mySummary"></div>
+
+                </div>
+
+
+
+                <!-- =================================================
+                     ALL CLIENTS
+                ================================================= -->
+
+                <div
+                    id="allClientsSection"
+                    class="d-none">
+
+                    <div class="heading">
+
+                        <h2>
+                            All Clients
+                        </h2>
+
+                    </div>
+
+
+                    <div id="clientsContainer"></div>
+
+                </div>
+
+
+
+                <!-- =================================================
+                     MANAGER SUMMARY
+                ================================================= -->
+
+                <div
+                    id="managerSummarySection"
+                    class="d-none">
+
+                    <button
+                        class="btn btn-secondary mb-3"
+                        onclick="showAllClients()">
+
+                        ← Back
+
+                    </button>
+
+
+                    <div id="managerSummary"></div>
+
+                </div>
+
+
+
+                <!-- =================================================
+                     ADMIN DASHBOARD
+                ================================================= -->
+
+                <div
+                    id="adminDashboardSection"
+                    class="d-none">
+
+                    <div class="heading">
+
+                        <h2>
+                            Super Admin Dashboard
+                        </h2>
+
+                        <p>
+                            Complete application control.
+                        </p>
+
+                    </div>
+
+
+                    <div class="row">
+
+                        <div class="col-md-3 mb-3">
+
+                            <div class="stat-card">
+
+                                <h6>
+                                    Total Clients
+                                </h6>
+
+                                <h2 id="totalClients">
+                                    0
+                                </h2>
+
+                            </div>
+
+                        </div>
+
+
+                        <div class="col-md-3 mb-3">
+
+                            <div class="stat-card">
+
+                                <h6>
+                                    Total Projects
+                                </h6>
+
+                                <h2 id="totalProjects">
+                                    0
+                                </h2>
+
+                            </div>
+
+                        </div>
+
+
+                        <div class="col-md-3 mb-3">
+
+                            <div class="stat-card">
+
+                                <h6>
+                                    Sales Entries
+                                </h6>
+
+                                <h2 id="salesEntries">
+                                    0
+                                </h2>
+
+                            </div>
+
+                        </div>
+
+
+                        <div class="col-md-3 mb-3">
+
+                            <div class="stat-card">
+
+                                <h6>
+                                    Client Entries
+                                </h6>
+
+                                <h2 id="clientEntries">
+                                    0
+                                </h2>
+
+                            </div>
+
+                        </div>
+
+                    </div>
+
+
+                    <div class="form-card">
+
+                        <h4>
+                            Recent Clients
+                        </h4>
+
+                        <div id="recentClients"></div>
+
+                    </div>
+
+                </div>
+
+
+
+                <!-- =================================================
+                     ADMIN CLIENTS
+                ================================================= -->
+
+                <div
+                    id="adminClientsSection"
+                    class="d-none">
+
+                    <div class="heading">
+
+                        <h2>
+                            Manage All Clients
+                        </h2>
+
+                    </div>
+
+
+                    <div class="mb-4">
+
+                        <input
+                            type="text"
+                            id="searchClient"
+                            class="form-control"
+                            placeholder="🔎 Search client, company or project..."
+                            onkeyup="searchAdminClients()">
+
+                    </div>
+
+
+                    <div id="adminClientsContainer"></div>
+
+                </div>
+
+
+
+                <!-- =================================================
+                     ADMIN ADD / EDIT
+                ================================================= -->
+
+                <div
+                    id="adminFormSection"
+                    class="d-none">
+
+                    <div class="heading">
+
+                        <h2 id="adminFormTitle">
+                            Add Client
+                        </h2>
+
+                    </div>
+
+
+                    <form id="adminClientForm">
+
+                        <input
+                            type="hidden"
+                            id="editClientId">
+
+
+                        <div class="form-card">
+
+                            <h4>
+                                Client Information
+                            </h4>
+
+
+                            <div class="row">
+
+                                <div class="col-md-6 mb-3">
+
+                                    <label>
+                                        Client Name *
+                                    </label>
+
+                                    <input
+                                        type="text"
+                                        id="adminClientName"
+                                        class="form-control"
+                                        required>
+
+                                </div>
+
+
+                                <div class="col-md-6 mb-3">
+
+                                    <label>
+                                        Company Name *
+                                    </label>
+
+                                    <input
+                                        type="text"
+                                        id="adminCompanyName"
+                                        class="form-control"
+                                        required>
+
+                                </div>
+
+
+                                <div class="col-md-6 mb-3">
+
+                                    <label>
+                                        Email *
+                                    </label>
+
+                                    <input
+                                        type="email"
+                                        id="adminEmail"
+                                        class="form-control"
+                                        required>
+
+                                </div>
+
+
+                                <div class="col-md-6 mb-3">
+
+                                    <label>
+                                        Phone
+                                    </label>
+
+                                    <input
+                                        type="tel"
+                                        id="adminPhone"
+                                        class="form-control">
+
+                                </div>
+
+
+                                <div class="col-md-6 mb-3">
+
+                                    <label>
+                                        Project Name
+                                    </label>
+
+                                    <input
+                                        type="text"
+                                        id="adminProjectName"
+                                        class="form-control">
+
+                                </div>
+
+
+                                <div class="col-md-6 mb-3">
+
+                                    <label>
+                                        Business Type
+                                    </label>
+
+                                    <input
+                                        type="text"
+                                        id="adminBusinessType"
+                                        class="form-control">
+
+                                </div>
+
+
+                                <div class="col-12 mb-3">
+
+                                    <label>
+                                        Project Description
+                                    </label>
+
+                                    <textarea
+                                        id="adminProjectDescription"
+                                        class="form-control"
+                                        rows="4"></textarea>
+
+                                </div>
+
+                            </div>
+
+                        </div>
+
+
+                        <button
+                            type="submit"
+                            class="btn btn-success">
+
+                            💾 Save Client
+
+                        </button>
+
+
+                        <button
+                            type="button"
+                            class="btn btn-secondary ms-2"
+                            onclick="showAdminClients()">
+
+                            Cancel
+
+                        </button>
+
+                    </form>
+
+                </div>
+
+
+
+                <!-- =================================================
+                     USERS
+                ================================================= -->
+
+                <div
+                    id="usersSection"
+                    class="d-none">
+
+                    <div class="heading">
+
+                        <h2>
+                            Users / Roles
+                        </h2>
+
+                    </div>
+
+
+                    <div class="form-card">
+
+                        <table class="table table-bordered">
+
+                            <thead>
+
+                                <tr>
+
+                                    <th>
+                                        Username
+                                    </th>
+
+                                    <th>
+                                        Role
+                                    </th>
+
+                                </tr>
+
+                            </thead>
+
+
+                            <tbody id="usersTable">
+
+                            </tbody>
+
+                        </table>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
+
+
+<script
+src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js">
+</script>
+
+<script src="script.js"></script>
+
+</body>
+
+</html>
